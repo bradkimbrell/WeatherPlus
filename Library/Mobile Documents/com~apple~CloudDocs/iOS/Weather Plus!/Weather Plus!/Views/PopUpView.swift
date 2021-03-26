@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PopUpView: View {
-	@ObservedObject var popUpKeys: Keys
+	@State var popUpKeys: Keys
 	@Binding var isPresented: Bool
 	var onDismiss: () -> () // Allows the onDismiss in the calling ContentView() to work.
 	
@@ -54,7 +54,6 @@ struct PopUpView: View {
 						
 					case 4: // Barometric Pressure
 						HStack {
-							Group {
 								Image(popUpKeys.image)
 									.resizable()
 									.scaledToFit()
@@ -66,12 +65,10 @@ struct PopUpView: View {
 									.offset(x: -20)
 									.font(.body)
 									.frame(width: 40, height: 80, alignment: .leading)
-							}
 						}
 						
 					case 5: // Wind & Sunrise
 						HStack {
-							Group {
 								Image(systemName: popUpKeys.image)
 									.font(Font.largeTitle.weight(.bold))
 									.foregroundColor(popUpKeys.foreColor)
@@ -84,11 +81,9 @@ struct PopUpView: View {
 										.font(Font.title3.weight(.regular))
 								}
 								.frame(width: 110, height: 80, alignment: .center)
-							}
 						}
 						
 					case 6: // UVI
-						Group {
 							VStack {
 								Text("")
 									.offset(y: -5)
@@ -110,13 +105,10 @@ struct PopUpView: View {
 								.foregroundColor(popUpKeys.foreColor)
 								.multilineTextAlignment(.center)
 								.padding(.horizontal)
-						}
 					default:
-						Image(systemName: popUpKeys.image)
-							.renderingMode(.original)
-							.frame(width: 60, alignment: .center)
+						Text("Error!")
 				}
-				Text(popUpKeys.desc)
+				Text(popUpKeys.desc)        
 					.multilineTextAlignment(.center)
 					.padding(.horizontal)
 					.padding(5)
@@ -126,8 +118,7 @@ struct PopUpView: View {
 				}) {
 					Text(K.tapToDismiss)
 						.font(.title3)
-						.padding(EdgeInsets(top: 12, leading: 20, bottom: 12,
-												  										trailing: 20))
+						.padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
 						.foregroundColor(.white)
 						.background(Color.blue)
 						.cornerRadius(10)

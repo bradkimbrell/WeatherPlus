@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "barometricPressure.png",
+      "filename" : "barometricPressure-2.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "barometricPressure-1.png",
       "idiom" : "universal"
     }
   ],

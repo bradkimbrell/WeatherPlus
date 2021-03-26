@@ -9,16 +9,16 @@ import Combine
 import Foundation
 
 public class APIServiceCombine {
-	public static let shared = APIServiceCombine()
-	var cancellables = Set<AnyCancellable>()
+	public static let shared	= APIServiceCombine()
+	var cancellables				= Set<AnyCancellable>()
 	
 	public enum APIError: Error {
 		case error(_ errorString: String)
 	}
 	
 	public func getJSON<T: Decodable>(urlString: String,
-			dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
-			keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase,
+			dateDecodingStrategy: JSONDecoder.DateDecodingStrategy	= .deferredToDate,
+			keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy	= .convertFromSnakeCase,
 			completion: @escaping (Result<T,APIError>) -> Void) {
 		guard let url = URL(string: urlString) else {
 			completion(.failure(.error(
@@ -28,8 +28,8 @@ public class APIServiceCombine {
 		//print(urlString)
 		let request = URLRequest(url: url)
 		let decoder = JSONDecoder()
-		decoder.dateDecodingStrategy = dateDecodingStrategy
-		decoder.keyDecodingStrategy = keyDecodingStrategy
+		decoder.dateDecodingStrategy	= dateDecodingStrategy
+		decoder.keyDecodingStrategy	= keyDecodingStrategy
 		URLSession.shared.dataTaskPublisher(for: request)
 			.map { $0.data }
 			.decode(type: T.self, decoder: decoder)

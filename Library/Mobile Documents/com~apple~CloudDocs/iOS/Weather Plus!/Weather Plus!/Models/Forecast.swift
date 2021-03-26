@@ -38,7 +38,6 @@ struct Forecast: Codable {
 		let windSpeed: Double
 		let windDeg: Double
 
-
 		struct Weather: Codable {
 			let id: Int
 			let main: String
@@ -52,4 +51,32 @@ struct Forecast: Codable {
 		let uvi: Double
 	}
 	let daily: [Daily]
+	
+	#if DEBUG
+//	static let sample =
+//		forecast(
+//			lat: 48.0406,
+//			lon: -84.5037,
+//			timezone: "America/Nipigon",
+//			timezone_offset: -14400,
+//			dt: 1616259600,
+//			sunrise: 1616240421,
+//			sunset: 1616284224,
+//			max: 281.15,
+//			min: 270.41,
+//			feelsLike: 272.23,
+//			pressure: 1028,
+//			humidity: 60,
+//			dewPoint: 272.2,
+//			windSpeed: 5.31,
+//			windDeg: 218,
+//			main: "Clear",
+//			description: "clear sky",
+//			icon: "01d",
+//			clouds: 0,
+//			pop: 0,
+//			uvi: 3.66
+//		)
+
+	#endif
 }

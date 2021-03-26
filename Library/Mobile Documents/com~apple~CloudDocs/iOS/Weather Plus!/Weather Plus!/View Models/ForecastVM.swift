@@ -1,5 +1,5 @@
 //
-//  ForecastViewModel.swift
+//  ForecastVM.swift
 //  MobileWeatherApp
 //
 //  Created by Brad Kimbrell on 3/1/21.
@@ -12,6 +12,7 @@ struct ForecastVM {
 	
 	let forecast: Forecast.Daily
 	var units: Int
+	@StateObject var popUpKeys = Keys()
 	
 	private static var dateFormatterDayName: DateFormatter {
 		let dateFormatter			= DateFormatter()
@@ -59,7 +60,7 @@ struct ForecastVM {
 	}
 	
 	private func convertTemp(_ temp: Double) -> Double {
-		let celsius = temp - 273.5
+		let celsius = temp - 273.5 // Convert from Kelvin
 		if units == 0 {
 			return celsius
 		} else {
@@ -84,6 +85,17 @@ struct ForecastVM {
 				"S","SSW","SW","WSW","W","WNW","NW","NNW"]
 		return textWindDir[(windRounded % 16)]
 
+	}
+	
+	func setClassToEmpty() {
+		popUpKeys.title	= ""
+		popUpKeys.desc	= ""
+		popUpKeys.image	= ""
+		popUpKeys.val1	= ""
+		popUpKeys.val2	= ""
+		popUpKeys.val3	= ""
+		popUpKeys.val4	= 0.0
+		popUpKeys.routine = 1
 	}
 	
 	func getWeatherImage() -> String {
@@ -120,16 +132,16 @@ struct ForecastVM {
 	}
 	
 	var sunrise: String { // Return 6:34a rather than 6:34am
-		let sunRise: String = String(Self.timeFormatter.string(from: forecast.sunrise))
-		var sunRiseShort = String(sunRise.dropLast().lowercased())
-		sunRiseShort = sunRiseShort.replacingOccurrences(of: " ", with: "")
+		let sunRise: String		= String(Self.timeFormatter.string(from: forecast.sunrise))
+		var sunRiseShort		= String(sunRise.dropLast().lowercased())
+		sunRiseShort			= sunRiseShort.replacingOccurrences(of: " ", with: "")
 		return "\(sunRiseShort)"
 	}
 	
 	var sunset: String { // Return 7:34p rather than 7:34pm
-		let sunSet: String = String(Self.timeFormatter.string(from: forecast.sunset))
-		var sunSetShort = String(sunSet.dropLast().lowercased())
-		sunSetShort = sunSetShort.replacingOccurrences(of: " ", with: "")
+		let sunSet: String	= String(Self.timeFormatter.string(from: forecast.sunset))
+		var sunSetShort		= String(sunSet.dropLast().lowercased())
+		sunSetShort			= sunSetShort.replacingOccurrences(of: " ", with: "")
 		return "\(sunSetShort)"
 	}
 	
@@ -148,14 +160,14 @@ struct ForecastVM {
 	func getFeelsLikeByTime() -> String {
 		
 		var temperatureAtTimeOfDay: Double
-		let dateComponents = DateComponents()
-		let timeOfDay = dateComponents.hour!
+		let dateComponents		= DateComponents()
+		let timeOfDay			= dateComponents.hour
 		
-//		guard let timeOfDay = timeOfDay else {
-//			return "\(Self.numberFormatter.string(for: convertTemp(forecast.feelsLike.day)) ?? "0")°"
-//		}
+		guard let unwrapTOD = timeOfDay else {
+			return "\(Self.numberFormatter.string(for: convertTemp(forecast.feelsLike.day)) ?? "0")°"
+		}
 		
-		switch timeOfDay {
+		switch unwrapTOD {
 			case 5...10: // Morning
 				temperatureAtTimeOfDay = forecast.feelsLike.morn
 			case 11...16: // Afternoon (using Day)
@@ -193,7 +205,8 @@ struct ForecastVM {
 	}
 	
 	var uvi: String {
-		return "\(Self.numberFormatterOneDigit.string(for: forecast.uvi) ?? "0")"
+		let tempUVI = Double(forecast.uvi)
+		return "\(String(format: "%.1f", tempUVI))"
 	}
 	
 	func getUVIColor() -> Color {
@@ -253,7 +266,7 @@ struct ForecastVM {
 	
 	var wind: String {
 		let windSpeed = convertWindSpeed()
-		return "\(Int(windSpeed + 0.5))"
+		return "\(String(format: "%.0f", windSpeed))"
 	}
 	
 	var windDir: String {

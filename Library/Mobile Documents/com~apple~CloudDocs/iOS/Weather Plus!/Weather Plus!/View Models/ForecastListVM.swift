@@ -16,12 +16,12 @@ class ForecastListVM: ObservableObject {
 	}
 	
 	@Published var forecasts: [ForecastVM] = []
-	var appError: AppError? 									= nil
-	@Published var isLoading: Bool 							= false
-	@AppStorage("location") var storageLocation: String	= ""
-	@Published var location										= ""
+	var appError: AppError? = nil
+	@Published var isLoading: Bool = false
+		
+	@AppStorage("location") var storageLocation: String = ""
+	@Published var location = ""
 	
-	// Default to (1) = Imperial Units,  (0) = Metric
 	@AppStorage("units") var units: Int = 1 {
 		didSet {
 			for i in 0..<forecasts.count {
@@ -43,7 +43,6 @@ class ForecastListVM: ObservableObject {
 		} else {
 			isLoading			= true
 			let apiURL		= "https://api.openweathermap.org/data/2.5/onecall"
-//FIXME: - Add alerts
 			let exclude		= "current,minutely,hourly,alerts"
 			let apiKey		= "35db4c23efb0026b5505cfc30fbecaee"
 			let apiService	= APIServiceCombine.shared
@@ -51,8 +50,9 @@ class ForecastListVM: ObservableObject {
 			CLGeocoder().geocodeAddressString(location) { (placemarks, error) in
 				if let error = error as? CLError {
 					switch error.code {
-						case .locationUnknown, .geocodeFoundNoResult,
-														.geocodeFoundPartialResult:
+						case .locationUnknown,
+							  .geocodeFoundNoResult,
+								.geocodeFoundPartialResult:
 							self.appError = AppError(
 								errorString: NSLocalizedString(
 									K.Error.noLoc,

@@ -17,7 +17,7 @@ struct K {
 	static var enterLoc		= "Enter Location: "
 	static var millibars		= "mb"
 	static var uvi			= "uvi"
-	static var navTitle		= "Family Weather"
+	static var navTitle		= "Weather Plus!"
 	static var tryLater		= "Please try again later!"
 	static var fetchWeather	= "Fetching Weather"
 	static var tapToDismiss	= "Tap to Dismiss"
@@ -100,9 +100,9 @@ struct K {
 	
 	
 	struct Error {
-		static var noLoc			= "Unable to determine location from this text."
-		static var noNet			= "You do not appear to have a network connection."
-		static var invalidURL	= "Error: Invalid URL"
-		static var decoding		= "Decoding Error:"
+		static var noLoc		= "Unable to determine location from this text."
+		static var noNet		= "You do not appear to have a network connection."
+		static var decoding	= "Decoding Error:"
+		static var invalidURL = "Error: Invalid URL"
 	}
 }

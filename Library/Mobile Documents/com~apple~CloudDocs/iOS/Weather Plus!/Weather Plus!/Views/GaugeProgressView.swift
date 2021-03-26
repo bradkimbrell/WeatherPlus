@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct GaugeProgressViewStyle: ProgressViewStyle {
-	@ObservedObject var popUpKeys: Keys
+	@State var popUpKeys: Keys
 	
 	let ag = AngularGradient(gradient: Gradient(colors: [.green, .yellow, .orange, .red, .purple]),
 									center: .center,

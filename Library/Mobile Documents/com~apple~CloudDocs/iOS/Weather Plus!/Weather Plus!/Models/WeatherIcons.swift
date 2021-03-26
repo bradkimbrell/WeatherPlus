@@ -1,44 +1,12 @@
 //
 //  WeatherIcons.swift
-//  MobileWeatherApp
+//  
 //
 //  Created by Brad Kimbrell on 2/20/21.
 //
 
-//import Foundation
-//
-//class WeatherIcons: ObservableObject {
-//	let forecast: Forecast.Daily
-//	
-//	init() {
-//		getWeatherImage()
-//	}
-//	
-//	func getWeatherImage() -> String {
-//		
-//		switch forecast.weather[0].id {
-//			case 200, 201, 202, 210, 211, 212, 221, 230, 231, 232:		// Thunderstorms
-//				return "Children in Rain"
-//			case 300, 301, 302, 310, 311, 312, 313, 314, 321:			// Drizzle
-//				return "Children in Rain"
-//			case 500, 501, 502, 503, 504, 511, 520, 521, 522, 531:		// Rain
-//				return "Children in Rain"
-//			case 600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622:	// Snow
-//				return "Children in Snow"
-//			case 701, 711, 721, 731, 741, 751, 761, 762, 771, 781:		// Atmosphere
-//				return "Children in Sun"
-//			case 800:												// Clear
-//				return "Children in Sun"
-//			case 801, 802, 803, 804:									// Clouds
-//				return "Children in Clouds"
-//			default:
-//				return "Children in Sun"
-//		}
-//	}
-//}
-
-
 /*
+
 ID	Main		Description							Icon
 
 200	T'storm	thunderstorm with light rain		11d 	cloud.bolt.rain.fill	light blue
